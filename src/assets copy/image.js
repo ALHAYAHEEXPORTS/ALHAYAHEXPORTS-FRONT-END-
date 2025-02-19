@@ -64,7 +64,7 @@ import rice12 from "./Image-folder/rice12.jpg";
 import rice13 from "./Image-folder/rice13.jpg";
 import OPI from "./Image-folder/OIP.jpg";
 
-import GlobalMap from "./Image-folder/hi2.webp"
+import GlobalMap from "./Image-folder/worldMap.jpg"
 import riceform1 from "./Image-folder/hi3.png";
 import riceform2 from "./Image-folder/hi4.jpg";
 import riceform3 from "./Image-folder/hi5.jpg";
