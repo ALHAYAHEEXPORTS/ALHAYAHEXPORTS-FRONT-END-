@@ -42,7 +42,7 @@ const CardSection = () => {
         
         <motion.div className="max-w-4xl mx-auto" variants={fadeInUp}>
           <img
-            src={img.GlobalMap} // Ensure correct path
+            src={img.map} // Ensure correct path
             alt="Global Presence Map"
             className=""
           />

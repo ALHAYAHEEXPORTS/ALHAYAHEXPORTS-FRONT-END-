@@ -8,6 +8,11 @@ import collabration from "./Image-folder/collabration.png";
 
 import footerlogo from "./Image-folder/footerlogo.png"
 
+
+import farmer from "./Image-folder/farmer.jpg"
+import farmer2 from "./Image-folder/farmer2.jpg"
+import farmer3 from "./Image-folder/farmer3.jpg"
+import farmer4 from "./Image-folder/farmer4.jpg"
 import img2 from "./Image-folder/img2.png";
 import img3 from "./Image-folder/img3.png";
 import img1 from "./Image-folder/img1.png";
@@ -72,6 +77,11 @@ import riceform3 from "./Image-folder/hi5.jpg";
 
 export const img = {
 
+
+    farmer,
+    farmer2,
+    farmer3,
+      farmer4,
 riceform1,
 riceform2,
 riceform3,

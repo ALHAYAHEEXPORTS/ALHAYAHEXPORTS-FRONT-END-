@@ -1,231 +1,87 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { img } from '../assets copy/image';
+import React from "react";
+import { motion } from "framer-motion";
+import { img } from "../assets copy/image";
 
-// Animation variants
-const pathVariants = {
-  hidden: { pathLength: 0 },
-  visible: { 
-    pathLength: 1,
-    transition: { duration: 2, ease: "easeInOut" }
-  }
+// Define animation variants
+const stepVariants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 120, damping: 15 } }
 };
 
-const ProcessStep = ({ step, index, totalSteps }) => {
-  const isEven = index % 2 === 0;
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+};
 
-  // Improved path calculation for better connections
-  const getPath = () => {
-    const startX = isEven ? 0 : 1200;
-    const endX = isEven ? 1200 : 0;
-    const midX = 600;
-    const startY = 50;
-    const endY = 400; // Increased height for better connection
-    const controlY = 250; // Adjusted control point
+// Steps Data with Corresponding Images
+const steps = [
+  { title: "Cultivation", description: "Farmers grow crops in optimal conditions.", image: img.farmer },
+  { title: "Harvesting", description: "Mature crops are carefully harvested.", image: img.farmer2 },
+  { title: "Processing", description: "Raw materials are refined and processed.", image: img.farmer3 },
+  { title: "Packaging", description: "Final products are packed for distribution.", image: img.farmer },
+  { title: "Distribution", description: "Goods are shipped to markets worldwide.", image: img.farmer2 }
+];
 
-    return `M${startX},${startY} 
-            C${startX + (midX - startX) / 2},${startY} 
-             ${startX + (midX - startX) / 2},${controlY} 
-             ${midX},${controlY} 
-            C${endX - (endX - midX) / 2},${controlY} 
-             ${endX - (endX - midX) / 2},${endY} 
-             ${endX},${endY}`;
-  };
-
+const Step = ({ step, index, totalSteps }) => {
   return (
-    <div className={`relative flex ${isEven ? 'flex-row' : 'flex-row-reverse'} items-center gap-8 mb-48`}>
-      {/* Step Number Circle */}
-      <motion.div
-        className="absolute left-1/2 -translate-x-1/2 w-12 h-12 bg-yellow-900 rounded-full flex items-center justify-center z-20"
-        initial={{ scale: 0, rotate: -180 }}
-        whileInView={{ scale: 1, rotate: 0 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 200, damping: 10 }}
-      >
-        <span className="text-white font-bold">{index + 1}</span>
-      </motion.div>
-
-      {/* Content Card */}
-      <motion.div
-        className={`w-5/12 bg-white rounded-xl p-6 shadow-lg relative z-10`}
-        initial={{ 
-          opacity: 0, 
-          x: isEven ? -100 : 100,
-          rotateY: isEven ? 45 : -45 
-        }}
-        whileInView={{ 
-          opacity: 1, 
-          x: 0,
-          rotateY: 0
-        }}
-        viewport={{ once: true }}
-        transition={{ 
-          type: "spring",
-          stiffness: 100,
-          damping: 12,
-          delay: index * 0.1
-        }}
-        whileHover={{ 
-          scale: 1.02,
-          boxShadow: "0 20px 30px rgba(0,0,0,0.15)"
-        }}
-      >
-        {/* Connection points */}
-        <motion.div 
-          className={`absolute ${isEven ? '-right-3' : '-left-3'} bottom-0 w-6 h-6 bg-yellow-900 rounded-full border-4 border-white shadow-lg`}
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          viewport={{ once: true }}
-        />
-
-        <div className="relative">
-          {/* Icon */}
-          <motion.div 
-            className="absolute -top-10 right-0 w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center"
-            animate={{
-              y: [-5, 5],
-              rotate: [0, 5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          >
-            <img src={step.icon || img.leaveimage} alt="" className="w-8 h-8" />
-          </motion.div>
-
-          <h3 className="text-xl font-bold text-yellow-900 mb-3">{step.title}</h3>
-          <p className="text-gray-600">{step.description}</p>
-        </div>
-      </motion.div>
-
-      {/* Improved Connecting Lines */}
+    <motion.div
+      className="relative flex flex-col md:flex-row items-center md:items-start mb-14 w-full"
+      variants={stepVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+    >
+      {/* Continuous Vertical Line - Always on Left */}
       {index < totalSteps - 1 && (
-        <div className="absolute w-full h-96 left-0 top-full -mt-48 pointer-events-none">
-          <svg
-            className="absolute w-full h-full"
-            viewBox="0 0 1200 500"
-            preserveAspectRatio="none"
-            style={{ zIndex: 5 }}
-          >
-            {/* Background glow */}
-            <motion.path
-              d={getPath()}
-              stroke="rgba(146, 64, 14, 0.1)"
-              strokeWidth="20"
-              fill="none"
-              filter="url(#glow)"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={pathVariants}
-            />
-
-            {/* Main connecting line */}
-            <motion.path
-              d={getPath()}
-              stroke="#92400E"
-              strokeWidth="4"
-              fill="none"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={pathVariants}
-            />
-
-            {/* Flowing dots animation */}
-            <motion.path
-              d={getPath()}
-              stroke="#F59E0B"
-              strokeWidth="4"
-              strokeDasharray="5,30"
-              fill="none"
-              initial={{ pathOffset: 0 }}
-              animate={{ 
-                pathOffset: 1,
-                transition: {
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear"
-                }
-              }}
-            />
-
-            {/* Glow filter */}
-            <defs>
-              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-          </svg>
-        </div>
+        <div className="absolute left-6 md:left-16 top-6 w-1 h-full bg-yellow-900" />
       )}
-    </div>
+
+      {/* Circle Indicator - Always on Left */}
+      <div className="absolute left-6 md:left-16 w-5 h-5 md:w-8 md:h-8 border-4 border-yellow-900 bg-white rounded-full" />
+
+      {/* Step Content - Always Positioned to the Right */}
+      <div className="flex flex-col md:flex-row items-center gap-6 w-full ml-16 md:ml-36">
+        {/* Step Card */}
+        <motion.div className="w-full md:w-7/12 bg-white p-4 md:p-6 shadow-lg rounded-lg">
+          <h3 className="text-lg md:text-2xl font-bold text-yellow-900 mb-2 md:mb-3">{step.title}</h3>
+          <p className="text-gray-600 text-sm md:text-lg">{step.description}</p>
+        </motion.div>
+
+        {/* Image */}
+        <motion.img
+          src={step.image}
+          alt={step.title}
+          className="w-24 h-24 md:w-36 md:h-36 object-cover rounded-lg shadow-lg"
+          variants={fadeInUp}
+        />
+      </div>
+    </motion.div>
   );
 };
 
 const ProductionProcess = () => {
-  const processSteps = [
-    { title: "Cultivation", description: "Farmers cultivate rice in fertile fields, primarily in waterlogged areas, where the crop thrives under specific conditions." },
-    { title: "Harvesting", description: "Once the rice plants mature, they are harvested using traditional methods or modern machinery. The harvested rice is called paddy." },
-    { title: "Threshing", description: "The harvested paddy is threshed to separate the grains from the stalks. This can be done manually or using mechanical threshers." },
-    { title: "Drying", description: "The grains are dried to reduce their moisture content, ensuring longer shelf life and preventing spoilage." },
-    { title: "Cleaning", description: "The dried paddy is cleaned to remove impurities like stones, husks, and other debris." },
-    { title: "Dehusking", description: "The outer husk of the rice grain is removed through hulling machines, leaving behind brown rice." },
-    { title: "Polishing/Milling", description: "The brown rice is further processed to remove the bran layer, resulting in white rice with a smooth texture." },
-    { title: "Sorting & Grading", description: "The milled rice is sorted and graded based on size, quality, and type, separating broken or inferior grains." },
-    { title: "Quality Testing", description: "The final product is tested to ensure it is airtight, tamper-proof, and maintains freshness." },
-    { title: "Packaging & Distribution", description: "The rice is packed in high-quality bags and transported to distributors and consumers worldwide." },
-  ];
-
   return (
-    <div className="bg-gradient-to-b mt-16  from-orange-50 to-white py-20">
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Header */}
-        <motion.div 
-          className="text-center mb-24"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <motion.div
-            className="inline-block mb-6"
-            animate={{ 
-              rotate: [0, 360],
-              scale: [1, 1.1, 1]
-            }}
-            transition={{ 
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "loop"
-            }}
-          >
-            <img src={img.leaveimage} alt="leaf" className="w-16 h-16" />
-          </motion.div>
-          <h2 className="text-4xl font-bold text-yellow-900 mb-4">
-            Our Production Process
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-          From cultivation to distribution, our rice undergoes a meticulous process to ensure unmatched quality and taste.
-          </p>
-        </motion.div>
+    <div className="py-12 px-4 md:py-16 md:px-20 mt-16">
+      <motion.div
+        className="max-w-5xl mx-auto text-center mb-12 md:mb-16"
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <h2 className="text-2xl md:text-5xl font-bold text-yellow-900">Our Production Process</h2>
+        <p className="text-gray-600 mt-3 md:mt-6 max-w-3xl mx-auto text-sm md:text-lg">
+          A step-by-step journey of how we ensure quality from cultivation to distribution.
+        </p>
+      </motion.div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {processSteps.map((step, index) => (
-            <ProcessStep 
-              key={index}
-              step={step}
-              index={index}
-              totalSteps={processSteps.length}
-            />
-          ))}
-        </div>
+      <div className="max-w-5xl mx-auto flex flex-col items-start relative">
+        {/* Full-length vertical line to connect all circles */}
+        <div className="absolute left-6 md:left-16 top-0 bottom-0 w-1 bg-yellow-900" />
+
+        {steps.map((step, index) => (
+          <Step key={index} step={step} index={index} totalSteps={steps.length} />
+        ))}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { img } from "../assets copy/image";
 
 const Footer = () => {
   return (
-    <footer className="bg-yellow-950 text-white w-full py-10 px-6 md:px-16">
+    <footer className="bg-[#3f2512ef] text-white w-full py-10 px-6 md:px-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-left">
         
         {/* Left Section: Company Info */}
@@ -13,7 +13,7 @@ const Footer = () => {
           <img
             src={img.footerlogo}
             alt="Hayah Foods Logo"
-            className="hidden sm:block w-20 sm:w-24 h-auto mb-4"
+            className="hidde sm:block w-20 sm:w-24 h-auto mb-4"
           />
 
           {/* Paragraph visible only on larger screens */}
