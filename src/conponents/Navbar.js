@@ -32,7 +32,7 @@ const Navbar = () => {
         <ul className="hidden md:flex space-x-4 lg:space-x-8 items-center text-gray-800 font-medium mx-auto">
           <li>
             <Link to="/about" className="relative text-gray-800 hover:text-yellow-700 transition duration-300">
-              About
+              About Us
             </Link>
           </li>
           <li>
