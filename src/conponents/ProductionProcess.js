@@ -24,7 +24,7 @@ const ProductionProcess = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % millImages.length);
-    }, 3000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
@@ -97,7 +97,7 @@ const ProductionProcess = () => {
 
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-[#faf3ee] via-white to-[#faf3ee] py-6 sm:py-12">
-      {/* Header Section - Improved mobile spacing */}
+      {/* Header Section */}
       <motion.div 
         className="text-center py-4 sm:py-8 md:py-12 px-4 sm:px-6"
         initial={{ opacity: 0, y: -20 }}
@@ -112,198 +112,190 @@ const ProductionProcess = () => {
         </p>
       </motion.div>
 
-      {/* Main Content Container - Mobile optimized */}
-      <div className="relative max-w-8xl mx-auto px-3 sm:px-6">
-        {/* Background Blur Effect */}
-        <div className="absolute inset-0 bg-white/30 backdrop-blur-sm rounded-3xl"></div>
-
-        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 p-3 sm:p-6 md:p-8">
-          {/* Left Section - Process Steps - Mobile optimized */}
-          <div 
-            className="bg-white/80 backdrop-blur rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-8 md:p-10 relative overflow-hidden"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {/* Add auto-progress indicator */}
-            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex items-center gap-2">
-              <button
-                onClick={() => setIsPaused(!isPaused)}
-                className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full transition-colors
-                  ${isPaused 
-                    ? 'bg-yellow-100 text-yellow-600' 
-                    : 'bg-green-100 text-green-600'
-                  }`}
-              >
-                
-              </button>
-            </div>
-
-            {/* Add progress timer bar */}
-            {!isPaused && (
-              <motion.div
-                className="absolute top-0 left-0 h-1 bg-yellow-600"
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: "linear",
-                  repeatType: "loop"
-                }}
-              />
-            )}
-
-            <div className="flex items-center gap-2 mb-8">
-              <FaIndustry className="text-yellow-600 text-2xl" />
-              <h3 className="text-xl font-semibold">Processing Steps</h3>
-            </div>
-
-            {/* Background Pattern */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-50 rounded-full -mr-16 -mt-16" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-yellow-50 rounded-full -ml-16 -mb-16" />
-
-            <motion.div className="relative mt-8 sm:mt-0">
-              {/* Vertical Progress Line - Adjusted position */}
-              <div className="absolute left-[18px] sm:left-[23px] top-0 bottom-0 w-0.5 sm:w-1 bg-gray-100 rounded-full">
-                <motion.div 
-                  className="w-full bg-yellow-600 rounded-full"
-                  style={{ 
-                    height: `${(activeStep / (processSteps.length - 1)) * 100}%`,
-                    transition: 'height 0.5s ease'
-                  }}
-                />
-              </div>
-
-              {/* Steps with improved spacing and perfectly round circles */}
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  className={`
-                    relative flex items-start mb-6 sm:mb-10 cursor-pointer group
-                    ${index === activeStep ? 'z-10' : 'z-0'}
-                  `}
-                  onClick={() => setActiveStep(index)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+      {/* Main Content - Adjusted for better image display */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="relative">
+          {/* Glassmorphism Background Effects */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-white/10 backdrop-blur-xl rounded-3xl" />
+          <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl" />
+          
+          {/* Content Container - Updated padding and layout */}
+          <div className="relative bg-white/40 backdrop-blur-md rounded-3xl shadow-xl overflow-hidden">
+            <div className="p-4 sm:p-6 md:p-8 lg:p-10">
+              {/* Updated Grid Layout */}
+              <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 lg:gap-8">
+                {/* Process Steps - Takes 7 columns now */}
+                <div className="xl:col-span-6 relative"
+                 onMouseEnter={handleMouseEnter}
+                 onMouseLeave={handleMouseLeave}
                 >
-                  {/* Fixed circular shape with aspect ratio */}
-                  <div 
-                    className={`
-                      relative flex items-center justify-center
-                      w-9 h-9 sm:w-12 sm:h-12 aspect-square rounded-full
-                      flex-shrink-0 transition-all duration-500 transform
-                      ${index === activeStep 
-                        ? 'bg-yellow-600 text-white scale-110 shadow-lg ring-2 sm:ring-4 ring-yellow-100' 
-                        : index < activeStep 
-                          ? 'bg-green-500 text-white'
-                          : 'bg-white text-gray-400 border-2 border-gray-200'
-                      }
-                      group-hover:shadow-xl group-hover:scale-105
-                    `}
-                  >
-                    {/* Icon container with fixed size */}
-                    <div className="w-4 h-4 sm:w-6 sm:h-6 flex items-center justify-center">
-                      {index < activeStep ? (
-                        <FiCheck className="w-4 h-4 sm:w-5 sm:h-5" />
-                      ) : (
-                        <span className="scale-75 sm:scale-100">{stepIcons[step.title]}</span>
-                      )}
+                  <div className="flex items-center gap-2 mb-8">
+                    <FaIndustry className="text-yellow-600 text-2xl" />
+                    <h3 className="text-xl font-semibold">Processing Steps</h3>
+                    
+                    {/* Auto-progress Controls */}
+                    <div className="ml-auto">
+                      <button
+                        onClick={() => setIsPaused(!isPaused)}
+                        className={`text-xs sm:text-sm px-3 py-1 rounded-full transition-colors
+                          ${isPaused 
+                            ? 'bg-yellow-100 text-yellow-600' 
+                            : 'bg-green-100 text-green-600'
+                          }`}
+                      >
+                        {isPaused ? 'Paused' : 'Auto-playing'}
+                      </button>
                     </div>
                   </div>
 
-                  {/* Step Content Card with improved spacing */}
-                  <div 
-                    className={`
-                      ml-4 sm:ml-6 p-3 sm:p-4 rounded-lg transition-all duration-300 flex-grow
-                      ${index === activeStep 
-                        ? 'bg-yellow-50 shadow-md transform -translate-y-1' 
-                        : 'bg-transparent'
-                      }
-                      group-hover:bg-yellow-50
-                    `}
-                  >
-                    <h3 className={`
-                      font-semibold text-base sm:text-lg mb-1 sm:mb-2 transition-colors duration-300
-                      ${index === activeStep ? 'text-yellow-600' : 'text-gray-600'}
-                    `}>
-                      {step.title}
-                    </h3>
-                    <AnimatePresence mode="wait">
-                      {activeStep === index && (
-                        <motion.p
-                          className="text-xs sm:text-sm text-gray-500 leading-relaxed"
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
+                  {/* Stepper Content */}
+                  <div className="relative">
+                    {/* Vertical Progress Line - Adjusted position */}
+                    <div className="absolute left-[18px] sm:left-[23px] top-0 bottom-0 w-0.5 sm:w-1 bg-gray-100 rounded-full">
+                      <motion.div 
+                        className="w-full bg-yellow-600 rounded-full"
+                        style={{ 
+                          height: `${(activeStep / (processSteps.length - 1)) * 100}%`,
+                          transition: 'height 0.5s ease'
+                        }}
+                      />
+                    </div>
+
+                    {/* Steps with improved spacing and perfectly round circles */}
+                    {processSteps.map((step, index) => (
+                      <motion.div
+                        key={index}
+                        className={`
+                          relative flex items-start mb-6 sm:mb-10 cursor-pointer group
+                          ${index === activeStep ? 'z-10' : 'z-0'}
+                        `}
+                        onClick={() => setActiveStep(index)}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        {/* Fixed circular shape with aspect ratio */}
+                        <div 
+                          className={`
+                            relative flex items-center justify-center
+                            w-9 h-9 sm:w-12 sm:h-12 aspect-square rounded-full
+                            flex-shrink-0 transition-all duration-500 transform
+                            ${index === activeStep 
+                              ? 'bg-yellow-600 text-white scale-110 shadow-lg ring-2 sm:ring-4 ring-yellow-100' 
+                              : index < activeStep 
+                                ? 'bg-yellow-600 text-white'
+                                : 'bg-white text-gray-400 border-2 border-gray-200'
+                            }
+                            group-hover:shadow-xl group-hover:scale-105
+                          `}
                         >
-                          {step.description}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                          {/* Icon container with fixed size */}
+                          <div className="w-4 h-4 sm:w-6 sm:h-6 flex items-center justify-center">
+                            {index < activeStep ? (
+                              <FiCheck className="w-4 h-4 sm:w-5 sm:h-5" />
+                            ) : (
+                              <span className="scale-75 sm:scale-100">{stepIcons[step.title]}</span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Step Content Card with improved spacing */}
+                        <div 
+                          className={`
+                            ml-4 sm:ml-6 p-3 sm:p-4 rounded-lg transition-all duration-300 flex-grow
+                            ${index === activeStep 
+                              ? 'bg-yellow-50 shadow-md transform -translate-y-1' 
+                              : 'bg-transparent'
+                            }
+                            group-hover:bg-yellow-50
+                          `}
+                        >
+                          <h3 className={`
+                            font-semibold text-base sm:text-lg mb-1 sm:mb-2 transition-colors duration-300
+                            ${index === activeStep ? 'text-yellow-600' : 'text-gray-600'}
+                          `}>
+                            {step.title}
+                          </h3>
+                          <AnimatePresence mode="wait">
+                            {activeStep === index && (
+                              <motion.p
+                                className="text-xs sm:text-sm text-gray-500 leading-relaxed"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                {step.description}
+                              </motion.p>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+                </div>
 
-          {/* Right Section - Mill Images - Mobile optimized */}
-          <div className="bg-white/80 backdrop-blur rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 flex flex-col">
-            <div className="flex items-center gap-2 mb-6">
-              <BsFillBuildingsFill className="text-yellow-600 text-2xl" />
-              <h3 className="text-xl font-semibold">Our Facilities</h3>
-            </div>
+                {/* Facility Images - Takes 5 columns now for larger display */}
+                <div className="xl:col-span-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <BsFillBuildingsFill className="text-yellow-600 text-2xl" />
+                    <h3 className="text-xl font-semibold">Our Facilities</h3>
+                  </div>
 
-            <div className="relative flex-1 min-h-[500px] md:min-h-[600px] rounded-xl overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentImage}
-                  src={millImages[currentImage]}
-                  alt={`Mill facility ${currentImage + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover rounded-xl"
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 1 }}
-                />
-              </AnimatePresence>
+                  {/* Updated Image Container */}
+                  <div className="relative rounded-2xl overflow-hidden h-[500px] sm:h-[600px] xl:h-[calc(100vh-15rem)] max-h-[800px]">
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={currentImage}
+                        src={millImages[currentImage]}
+                        alt={`Mill facility ${currentImage + 1}`}
+                        className="absolute inset-0 w-full h-full object-cover object-center"
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 1 }}
+                      />
+                    </AnimatePresence>
 
-              {/* Enhanced Image Navigation Dots */}
-              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
-                {millImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImage(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 
-                      ${currentImage === index 
-                        ? 'bg-white w-8 shadow-lg' 
-                        : 'bg-white/50 hover:bg-white/80'}`}
-                  />
-                ))}
-              </div>
+                    {/* Enhanced Navigation Dots - Moved higher from bottom */}
+                    <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
+                      {millImages.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentImage(index)}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 
+                            ${currentImage === index 
+                              ? 'bg-white w-8 shadow-lg' 
+                              : 'bg-white/50 hover:bg-white/80'}`}
+                        />
+                      ))}
+                    </div>
 
-              {/* Enhanced Overlay with Facility Info */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-end">
-                <div className="p-8 text-white w-full">
-                  <h4 className="text-2xl font-semibold mb-3">
-                    Modern Processing Facility
-                  </h4>
-                  <p className="text-sm opacity-90 max-w-xl">
-                    State-of-the-art equipment ensuring highest quality standards with cutting-edge technology
-                  </p>
+                    {/* Enhanced Image Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end">
+                      <div className="p-8 text-white w-full">
+                        <h4 className="text-2xl font-semibold mb-3">
+                          Modern Processing Facility
+                        </h4>
+                        <p className="text-sm opacity-90 max-w-lg">
+                          State-of-the-art equipment ensuring highest quality standards 
+                          with advanced processing technology
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Decorative Elements for Seamless Look */}
-        <div className="absolute -top-10 -right-10 w-40 h-40 bg-yellow-100/30 rounded-full blur-2xl"></div>
-        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow-100/30 rounded-full blur-2xl"></div>
+          {/* Enhanced Decorative Elements */}
+          <div className="absolute -top-10 -right-10 w-60 h-60 bg-yellow-100/30 rounded-full blur-3xl" />
+          <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-yellow-100/30 rounded-full blur-3xl" />
+        </div>
       </div>
 
-      {/* Progress Indicator - Mobile optimized */}
+      {/* Progress Indicator */}
       <motion.div 
         className="fixed top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-14 sm:h-14 rounded-full 
                   bg-yellow-600/90 backdrop-blur text-sm sm:text-base
