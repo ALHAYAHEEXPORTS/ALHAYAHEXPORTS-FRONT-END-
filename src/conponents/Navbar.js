@@ -28,13 +28,14 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
+      className={`fixed top-0 left-0 w-full transition-all duration-300
         ${isScrolled 
           ? 'bg-white/90 backdrop-blur-md shadow-lg' 
           : 'bg-white shadow-md'}`}
+      style={{ zIndex: 1000 }} // Ensure navbar is always on top
     >
       {/* Main Navigation Bar */}
-      <div className="flex justify-between items-center w-full px-4 md:px-8 lg:px-16 py-3">
+      <div className="relative flex justify-between items-center w-full px-4 md:px-8 lg:px-16 py-3">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0 z-50">
           <img
@@ -92,10 +93,11 @@ const Navbar = () => {
           </motion.button>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button - Updated z-index */}
         <button 
-          className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors z-50"
+          className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors relative"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          style={{ zIndex: 1002 }} // Above the mobile menu
         >
           {isMobileMenuOpen ? (
             <FiX className="w-6 h-6 text-gray-800" />
@@ -105,37 +107,34 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Updated z-indices */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop - Updated */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              className="fixed inset-0 bg-black/50"
+              style={{ zIndex: 1001 }} // Above navbar, below menu button
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu - Updated */}
             <motion.div 
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="fixed top-0 right-0 w-[80%] max-w-sm h-full bg-white z-50 lg:hidden"
+              className="fixed top-0 right-0 w-[80%] max-w-sm h-screen bg-white"
+              style={{ zIndex: 1001 }} // Same as backdrop
             >
-              <div className="flex flex-col h-full overflow-y-auto">
-                {/* Mobile Menu Header */}
-                <div className="flex items-center justify-between p-4 border-b">
+              {/* Mobile Menu Content */}
+              <div className="flex flex-col h-full overflow-y-auto pt-16"> {/* Added pt-16 for navbar height */}
+                {/* Mobile Menu Header - Removed close button from header */}
+                <div className="px-4 pb-4 border-b">
                   <span className="text-lg font-semibold text-gray-800">Menu</span>
-                  <button 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 rounded-lg hover:bg-gray-100"
-                  >
-                    <FiX className="w-6 h-6 text-gray-800" />
-                  </button>
                 </div>
 
                 {/* Mobile Navigation Links */}
