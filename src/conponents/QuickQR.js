@@ -3,7 +3,7 @@ import QRCode from 'qrcode';
 import { motion } from 'framer-motion';
 
 const ContactQRCode = () => {
-  const [qrCodeUrls, setQrCodeUrls] = useState({ ankush: '', sagar: '' });
+  const [qrCodeUrls, setQrCodeUrls] = useState({ ankush: '', sagar: '', prajawal: '' });
 
   const contactDetails = {
     ankush: {
@@ -17,6 +17,12 @@ const ContactQRCode = () => {
       tel: "+917988267986",
       email: "Sagarrana081@gmail.com",
       adr: "Vill. Gangar, Taraori - karnal, Haryana 132116"
+    },
+    prajawal: {
+      name: "Prajwal Singh",
+      tel: "+918384016763",
+      email: "prajwal@astren.com",
+      adr: "c-18 , Sector 105,Noida"
     }
   };
 
@@ -64,8 +70,6 @@ END:VCARD`;
     >
       {/* Background Decoration */}
       <div className="absolute -top-10 -right-10 w-40 h-40 bg-yellow-100 rounded-full opacity-50" />
-      <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow-50 rounded-full opacity-50" />
-
       {/* Contact Info */}
       <motion.div 
         className="text-center mb-4"

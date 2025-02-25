@@ -96,7 +96,7 @@ const ProductionProcess = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#faf3ee] via-white to-[#faf3ee] py-6 sm:py-12">
+    <div className="min-h-screen mt-20 bg-gradient-to-br from-[#faf3ee] via-white to-[#faf3ee] py-6 sm:py-12">
       {/* Header Section - Improved mobile spacing */}
       <motion.div 
         className="text-center py-4 sm:py-8 md:py-12 px-4 sm:px-6"
