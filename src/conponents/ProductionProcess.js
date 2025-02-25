@@ -134,7 +134,7 @@ const ProductionProcess = () => {
                     : 'bg-green-100 text-green-600'
                   }`}
               >
-                {isPaused ? 'Paused' : 'Auto-playing'}
+                
               </button>
             </div>
 
