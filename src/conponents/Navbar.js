@@ -20,6 +20,12 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Add scroll to bottom function
+  const scrollToBottom = () => {
+    const offset = 1500;
+    window.scrollTo({ top: document.body.scrollHeight - offset, behavior: "smooth" });
+  };
+
   return (
     <nav 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
@@ -71,6 +77,19 @@ const Navbar = () => {
             <RiQrCodeLine className="text-xl" />
             <span className="font-semibold">Contact</span>
           </Link>
+
+          {/* Added Scroll Button */}
+          <motion.button 
+            onClick={scrollToBottom}
+            className="p-2 rounded-full bg-gray-50 hover:bg-gray-100 
+                     text-gray-600 transition-all duration-300
+                     hover:shadow-md"
+            whileHover={{ y: 3 }}
+            animate={{ y: [0, 3, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <HiChevronDown className="text-xl" />
+          </motion.button>
         </div>
 
         {/* Mobile Menu Button */}

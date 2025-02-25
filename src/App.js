@@ -20,7 +20,7 @@ const App = () => {
 
     <Router>
       <Navbar />
-      <div style={{ padding: "20px" }}>
+      <div>
         <Routes>
           
       
