@@ -96,39 +96,39 @@ const ProductionProcess = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#faf3ee] via-white to-[#faf3ee] py-12">
-      {/* Header Section */}
+    <div className="min-h-screen bg-gradient-to-br from-[#faf3ee] via-white to-[#faf3ee] py-6 sm:py-12">
+      {/* Header Section - Improved mobile spacing */}
       <motion.div 
-        className="text-center py-8 md:py-12"
+        className="text-center py-4 sm:py-8 md:py-12 px-4 sm:px-6"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="text-4xl font-bold text-gray-800 mb-6">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4 sm:mb-6">
           Our Production Process
         </h2>
-        <p className="text-gray-600 max-w-3xl mx-auto px-6">
+        <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto">
           Experience our state-of-the-art rice processing facilities and quality-focused production steps
         </p>
       </motion.div>
 
-      {/* Main Content Container - Updated for seamless look */}
-      <div className="relative max-w-8xl mx-auto">
+      {/* Main Content Container - Mobile optimized */}
+      <div className="relative max-w-8xl mx-auto px-3 sm:px-6">
         {/* Background Blur Effect */}
         <div className="absolute inset-0 bg-white/30 backdrop-blur-sm rounded-3xl"></div>
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 p-6 md:p-8">
-          {/* Left Section - Process Steps */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 p-3 sm:p-6 md:p-8">
+          {/* Left Section - Process Steps - Mobile optimized */}
           <div 
-            className="bg-white/80 backdrop-blur rounded-2xl shadow-xl p-8 md:p-10 relative overflow-hidden"
+            className="bg-white/80 backdrop-blur rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-8 md:p-10 relative overflow-hidden"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
             {/* Add auto-progress indicator */}
-            <div className="absolute top-4 right-4 flex items-center gap-2">
+            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex items-center gap-2">
               <button
                 onClick={() => setIsPaused(!isPaused)}
-                className={`text-sm px-3 py-1 rounded-full transition-colors
+                className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full transition-colors
                   ${isPaused 
                     ? 'bg-yellow-100 text-yellow-600' 
                     : 'bg-green-100 text-green-600'
@@ -162,9 +162,9 @@ const ProductionProcess = () => {
             <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-50 rounded-full -mr-16 -mt-16" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-yellow-50 rounded-full -ml-16 -mb-16" />
 
-            <motion.div className="relative">
+            <motion.div className="relative mt-8 sm:mt-0">
               {/* Vertical Progress Line - Adjusted position */}
-              <div className="absolute left-[23px] top-0 bottom-0 w-1 bg-gray-100 rounded-full">
+              <div className="absolute left-[18px] sm:left-[23px] top-0 bottom-0 w-0.5 sm:w-1 bg-gray-100 rounded-full">
                 <motion.div 
                   className="w-full bg-yellow-600 rounded-full"
                   style={{ 
@@ -179,7 +179,7 @@ const ProductionProcess = () => {
                 <motion.div
                   key={index}
                   className={`
-                    relative flex items-start mb-10 cursor-pointer group
+                    relative flex items-start mb-6 sm:mb-10 cursor-pointer group
                     ${index === activeStep ? 'z-10' : 'z-0'}
                   `}
                   onClick={() => setActiveStep(index)}
@@ -191,10 +191,10 @@ const ProductionProcess = () => {
                   <div 
                     className={`
                       relative flex items-center justify-center
-                      w-12 h-12 aspect-square rounded-full
+                      w-9 h-9 sm:w-12 sm:h-12 aspect-square rounded-full
                       flex-shrink-0 transition-all duration-500 transform
                       ${index === activeStep 
-                        ? 'bg-yellow-600 text-white scale-110 shadow-lg ring-4 ring-yellow-100' 
+                        ? 'bg-yellow-600 text-white scale-110 shadow-lg ring-2 sm:ring-4 ring-yellow-100' 
                         : index < activeStep 
                           ? 'bg-green-500 text-white'
                           : 'bg-white text-gray-400 border-2 border-gray-200'
@@ -203,11 +203,11 @@ const ProductionProcess = () => {
                     `}
                   >
                     {/* Icon container with fixed size */}
-                    <div className="w-6 h-6 flex items-center justify-center">
+                    <div className="w-4 h-4 sm:w-6 sm:h-6 flex items-center justify-center">
                       {index < activeStep ? (
-                        <FiCheck className="w-5 h-5" />
+                        <FiCheck className="w-4 h-4 sm:w-5 sm:h-5" />
                       ) : (
-                        stepIcons[step.title]
+                        <span className="scale-75 sm:scale-100">{stepIcons[step.title]}</span>
                       )}
                     </div>
                   </div>
@@ -215,7 +215,7 @@ const ProductionProcess = () => {
                   {/* Step Content Card with improved spacing */}
                   <div 
                     className={`
-                      ml-6 p-4 rounded-lg transition-all duration-300 flex-grow
+                      ml-4 sm:ml-6 p-3 sm:p-4 rounded-lg transition-all duration-300 flex-grow
                       ${index === activeStep 
                         ? 'bg-yellow-50 shadow-md transform -translate-y-1' 
                         : 'bg-transparent'
@@ -224,7 +224,7 @@ const ProductionProcess = () => {
                     `}
                   >
                     <h3 className={`
-                      font-semibold text-lg mb-2 transition-colors duration-300
+                      font-semibold text-base sm:text-lg mb-1 sm:mb-2 transition-colors duration-300
                       ${index === activeStep ? 'text-yellow-600' : 'text-gray-600'}
                     `}>
                       {step.title}
@@ -232,7 +232,7 @@ const ProductionProcess = () => {
                     <AnimatePresence mode="wait">
                       {activeStep === index && (
                         <motion.p
-                          className="text-sm text-gray-500 leading-relaxed"
+                          className="text-xs sm:text-sm text-gray-500 leading-relaxed"
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
@@ -248,8 +248,8 @@ const ProductionProcess = () => {
             </motion.div>
           </div>
 
-          {/* Right Section - Mill Images - Updated sizing and styling */}
-          <div className="bg-white/80 backdrop-blur rounded-2xl shadow-xl p-6 md:p-8 flex flex-col">
+          {/* Right Section - Mill Images - Mobile optimized */}
+          <div className="bg-white/80 backdrop-blur rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 flex flex-col">
             <div className="flex items-center gap-2 mb-6">
               <BsFillBuildingsFill className="text-yellow-600 text-2xl" />
               <h3 className="text-xl font-semibold">Our Facilities</h3>
@@ -303,9 +303,10 @@ const ProductionProcess = () => {
         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow-100/30 rounded-full blur-2xl"></div>
       </div>
 
-      {/* Progress Indicator - Updated styling */}
+      {/* Progress Indicator - Mobile optimized */}
       <motion.div 
-        className="fixed top-6 right-6 w-14 h-14 rounded-full bg-yellow-600/90 backdrop-blur
+        className="fixed top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-14 sm:h-14 rounded-full 
+                  bg-yellow-600/90 backdrop-blur text-sm sm:text-base
                   flex items-center justify-center text-white font-bold shadow-lg"
         animate={{
           scale: [1, 1.1, 1],
