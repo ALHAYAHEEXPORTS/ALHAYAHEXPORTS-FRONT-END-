@@ -102,10 +102,6 @@ const handleSubmit = async (e) => {
             </motion.button>
           </form>
         </motion.div>
-              
-        <motion.div className="w-full lg:w-7/12">
-          <img src={factoryImage} alt="Factory" className="w-full hidden lg:block" />
-        </motion.div>
       </motion.div>
     </motion.div>
   );

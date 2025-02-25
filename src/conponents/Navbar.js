@@ -22,7 +22,7 @@ const Navbar = () => {
 
   // Add scroll to bottom function
   const scrollToBottom = () => {
-    const offset = 1500;
+    const offset = 0;
     window.scrollTo({ top: document.body.scrollHeight - offset, behavior: "smooth" });
   };
 
@@ -48,10 +48,10 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-8">
           {[
-            { path: "/about", icon: <FiInfo />, text: "About Us" },
-            { path: "/product", icon: <FiBox />, text: "Products" },
-            { path: "/bulk-order-enquiry", icon: <FiTruck />, text: "Bulk Order" },
-            { path: "/ProcessStep", icon: <FiSettings />, text: "Process" }
+            { path: "/about", text: "About Us" },
+            { path: "/product", text: "Products" },
+            { path: "/bulk-order-enquiry", text: "Bulk Order" },
+            { path: "/ProcessStep", text: "Process" }
           ].map((item) => (
             <Link 
               key={item.path}
@@ -61,7 +61,6 @@ const Navbar = () => {
                   ? 'text-yellow-600 bg-yellow-50' 
                   : 'text-gray-700 hover:text-yellow-600 hover:bg-yellow-50'}`}
             >
-              <span className="text-lg">{item.icon}</span>
               <span className="font-medium">{item.text}</span>
             </Link>
           ))}
@@ -140,10 +139,10 @@ const Navbar = () => {
                 {/* Mobile Navigation Links */}
                 <div className="flex flex-col p-4 space-y-4">
                   {[
-                    { path: "/about", icon: <FiInfo />, text: "About Us" },
-                    { path: "/product", icon: <FiBox />, text: "Products" },
-                    { path: "/bulk-order-enquiry", icon: <FiTruck />, text: "Bulk Order" },
-                    { path: "/ProcessStep", icon: <FiSettings />, text: "Process" }
+                    { path: "/about", text: "About Us" },
+                    { path: "/product", text: "Products" },
+                    { path: "/bulk-order-enquiry", text: "Bulk Order" },
+                    { path: "/ProcessStep", text: "Process" }
                   ].map((item) => (
                     <Link
                       key={item.path}
@@ -154,7 +153,6 @@ const Navbar = () => {
                           ? 'bg-yellow-50 text-yellow-600' 
                           : 'hover:bg-gray-50 text-gray-700'}`}
                     >
-                      <span className="text-lg">{item.icon}</span>
                       <span className="font-medium">{item.text}</span>
                     </Link>
                   ))}

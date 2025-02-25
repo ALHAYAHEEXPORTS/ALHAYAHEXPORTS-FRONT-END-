@@ -2,10 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiCheck } from 'react-icons/fi';
 import { BsFillBuildingsFill } from 'react-icons/bs';
-import { FaIndustry, FaLeaf, FaTractor } from 'react-icons/fa';
+import { FaIndustry, FaLeaf, FaTractor, FaPause, FaPlay } from 'react-icons/fa';
 import { GiWheat, GiFactory, GiWaterDrop } from 'react-icons/gi';
 import { MdCleaningServices, MdOutlineHighQuality } from 'react-icons/md';
 import { BiPackage } from 'react-icons/bi';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const ProductionProcess = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -81,6 +82,14 @@ const ProductionProcess = () => {
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
 
+  const handlePrevImage = () => {
+    setCurrentImage((prev) => (prev === 0 ? millImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = () => {
+    setCurrentImage((prev) => (prev + 1) % millImages.length);
+  };
+
   // Step icons mapping
   const stepIcons = {
     "Cultivation": <FaLeaf className="w-6 h-6" />,
@@ -129,23 +138,57 @@ const ProductionProcess = () => {
                  onMouseEnter={handleMouseEnter}
                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="flex items-center gap-2 mb-8">
-                    <FaIndustry className="text-yellow-600 text-2xl" />
-                    <h3 className="text-xl font-semibold">Processing Steps</h3>
-                    
-                    {/* Auto-progress Controls */}
-                    <div className="ml-auto">
-                      <button
-                        onClick={() => setIsPaused(!isPaused)}
-                        className={`text-xs sm:text-sm px-3 py-1 rounded-full transition-colors
-                          ${isPaused 
-                            ? 'bg-yellow-100 text-yellow-600' 
-                            : 'bg-green-100 text-green-600'
-                          }`}
-                      >
-                        {isPaused ? 'Paused' : 'Auto-playing'}
-                      </button>
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center gap-2">
+                      <FaIndustry className="text-yellow-600 text-2xl" />
+                      <h3 className="text-xl font-semibold">Processing Steps</h3>
                     </div>
+                    
+                    {/* Enhanced Auto-progress Controls */}
+                    <motion.button
+                      onClick={() => setIsPaused(!isPaused)}
+                      className={`
+                        relative flex items-center justify-center w-12 h-12
+                        rounded-full transition-all duration-300 group
+                        ${isPaused 
+                          ? 'bg-yellow-50 hover:bg-yellow-100' 
+                          : 'bg-green-50 hover:bg-green-100'
+                        }
+                      `}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {isPaused ? (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                        >
+                          <FaPlay className={`w-4 h-4 text-yellow-600 ml-0.5`} />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                        >
+                          <FaPause className={`w-4 h-4 text-green-600`} />
+                        </motion.div>
+                      )}
+                      
+                      {/* Tooltip */}
+                      <span className={`
+                        absolute -bottom-8 left-1/2 transform -translate-x-1/2
+                        text-xs font-medium px-2 py-1 rounded-md transition-all
+                        opacity-0 group-hover:opacity-100
+                        ${isPaused 
+                          ? 'bg-yellow-100 text-yellow-700' 
+                          : 'bg-green-100 text-green-700'
+                        }
+                      `}>
+                        {isPaused ? 'Resume' : 'Pause'}
+                      </span>
+                    </motion.button>
                   </div>
 
                   {/* Stepper Content */}
@@ -244,6 +287,27 @@ const ProductionProcess = () => {
 
                   {/* Updated Image Container */}
                   <div className="relative rounded-2xl overflow-hidden h-[500px] sm:h-[600px] xl:h-[calc(100vh-15rem)] max-h-[800px]">
+                    {/* Navigation Buttons */}
+                    <button
+                      onClick={handlePrevImage}
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 
+                                bg-white/20 hover:bg-white/40 backdrop-blur-sm
+                                w-10 h-10 rounded-full flex items-center justify-center
+                                transition-all duration-300 text-white hover:scale-110"
+                    >
+                      <IoIosArrowBack className="w-6 h-6" />
+                    </button>
+                    
+                    <button
+                      onClick={handleNextImage}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20
+                                bg-white/20 hover:bg-white/40 backdrop-blur-sm
+                                w-10 h-10 rounded-full flex items-center justify-center
+                                transition-all duration-300 text-white hover:scale-110"
+                    >
+                      <IoIosArrowForward className="w-6 h-6" />
+                    </button>
+
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={currentImage}
