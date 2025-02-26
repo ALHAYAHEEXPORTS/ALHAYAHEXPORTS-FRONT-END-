@@ -321,20 +321,6 @@ const ProductionProcess = () => {
                       />
                     </AnimatePresence>
 
-                    {/* Enhanced Navigation Dots - Moved higher from bottom */}
-                    <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
-                      {millImages.map((_, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setCurrentImage(index)}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 
-                            ${currentImage === index 
-                              ? 'bg-white w-8 shadow-lg' 
-                              : 'bg-white/50 hover:bg-white/80'}`}
-                        />
-                      ))}
-                    </div>
-
                     {/* Enhanced Image Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end">
                       <div className="p-8 text-white w-full">

@@ -25,7 +25,7 @@ const Contact = () => {
   };
 
   const API_BASE_URL = process.env.NODE_ENV === "production" 
-  ? "https://haryah-backend.vercel.app/api"
+  ? "https://alhayaheexports-backend.vercel.app/api"
   : "http://localhost:5000/api"; // Auto-switch between local & production
 
 const handleSubmit = async (e) => {

@@ -7,7 +7,7 @@ import { HiLocationMarker, HiPhone, HiMail } from 'react-icons/hi';
 import footerBg from "../assets copy/Image-folder/footer.png";
 
 const Footer = () => {
-  const API_BASE_URL = "https://haryah-backend.vercel.app/api"; // API URL
+  const API_BASE_URL = "https://alhayaheexports-backend.vercel.app/api"; // API URL
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -27,7 +27,16 @@ const Footer = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
-    console.log("📤 Sending Contact Data:", response); // Debugging
+    console.log("📤 Sending Contact Data:", response.status); // Debugging
+    if(response.status===201){
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        country: "",
+        message: "",
+      });
+    }
   };
 
   const fadeInUp = {

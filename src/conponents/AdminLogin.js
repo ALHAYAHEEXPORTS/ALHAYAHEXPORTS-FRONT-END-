@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_BASE_URL = "https://alhayaheexports-backend.onrender.com/api";
+const API_BASE_URL = "https://alhayaheexports-backend.vercel.app/api";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
