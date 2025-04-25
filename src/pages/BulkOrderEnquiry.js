@@ -5,6 +5,7 @@ import com2 from '../assets copy/Image-folder/hi3.png';
 import com3 from '../assets copy/Image-folder/hi4.jpg';
 import com4 from '../assets copy/Image-folder/hi5.jpg';
 import com5  from '../assets copy/Image-folder/hi2.webp';
+import RiceCalculator from "../conponents/Calucature";
 const InquiryForm = () => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -98,6 +99,8 @@ const InquiryForm = () => {
   ];
 
   return (
+    <>
+    <RiceCalculator />
     <div className="mt-32 min-h-screen bg-gradient-to-b from-orange-50">
       {/* Header Section */}
       <div className="text-center mt-12 px-3 py-7">
@@ -188,6 +191,7 @@ const InquiryForm = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
