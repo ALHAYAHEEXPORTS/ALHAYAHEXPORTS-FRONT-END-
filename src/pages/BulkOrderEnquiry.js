@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import com1 from '../assets copy/Image-folder/hi2.webp';
 import com2 from '../assets copy/Image-folder/hi3.png';
 import com3 from '../assets copy/Image-folder/hi4.jpg';
 import com4 from '../assets copy/Image-folder/hi5.jpg';
@@ -51,7 +50,7 @@ const InquiryForm = () => {
     try {
       console.log("📤 Sending Inquiry Data:", formData);
 
-      const response = await fetch("http://localhost:5000/api/inquiry", {
+      const response = await fetch("https://alhayaheexports-backend.vercel.app/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -91,10 +90,10 @@ const InquiryForm = () => {
   };
 
   const brands = [
-    { name: "Chaman Lal Setia", description: "Renowned agricultural enterprise with extensive rice trading network across North India", img: com1 },
-    { name: "Supple Tek (Zeeba Rice)", description: "Innovative food processing company specializing in premium rice packaging and distribution", img: com2 },
-    { name: "White Hill Agro", description: "Leading agricultural supplier with strong presence in Punjabi rice export markets", img: com3 },
-    { name: "Reliance Retail & DMART", description: "India's largest retail chains leveraging our high-quality rice for nationwide consumer markets", img: com4 },
+    { name: "Chaman Lal Setia", description: "Renowned agricultural enterprise with extensive rice trading network across North India", img: "/chaman-logo.png" },
+    { name: "Supple Tek (Zeeba Rice)", description: "Innovative food processing company specializing in premium rice packaging and distribution", img: "/supple-logo.png" },
+    { name: "White Hill Agro", description: "Leading agricultural supplier with strong presence in Punjabi rice export markets", img: "/whiteHill-logo.png" },
+    { name: "Reliance Retail & DMART", description: "India's largest retail chains leveraging our high-quality rice for nationwide consumer markets", img: com2 },
     { name: "Ebro India (Tilda Rice)", description: "Global rice major partnering with Hayah Foods for premium international rice sourcing", img: com5 },
   ];
 
@@ -172,7 +171,7 @@ const InquiryForm = () => {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Trusted by Leading Brands</h2>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-1 gap-4">
               {brands.map((brand, index) => (
                 <motion.div
                   key={index}

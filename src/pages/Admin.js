@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 
-const API_BASE_URL = process.env.NODE_ENV === "production" 
-  ? "https://haryah-backend.vercel.app/api" 
-  : "http://localhost:5000/api"; // Dynamically switch API URL
+const API_BASE_URL = "https://alhayaheexports-backend.vercel.app/api";
 
 const AdminPage = () => {
   const [inquiries, setInquiries] = useState([]);

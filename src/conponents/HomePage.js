@@ -89,11 +89,6 @@ const HomePage = () => {
       <GrainLength />
       <Precence />
       <WorkingProcess />
-
-      {/* Contact Section with ref */}
-      <div ref={contactRef}>
-        <Contact />
-      </div>
     </div>
   );
 };

@@ -1,144 +1,180 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { img } from "../assets copy/image";
+import { FiHome, FiInfo, FiBox, FiTruck, FiSettings, FiMenu, FiX } from 'react-icons/fi';
+import { RiQrCodeLine } from 'react-icons/ri';
+import { HiChevronDown } from 'react-icons/hi';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
-  const toggleMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev);
-  };
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
+  // Add scroll to bottom function
   const scrollToBottom = () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    const offset = 0;
+    window.scrollTo({ top: document.body.scrollHeight - offset, behavior: "smooth" });
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
-      <div className="flex justify-between items-center w-full px-3 md:px-8 lg:px-16 py-4">
-        {/* Logo Section (Left) */}
-        <div className="flex-shrink-0">
-          <Link to="/">
-            <img
-              src={img.logo}
-              alt="Hayah Foods Logo"
-              className="w-20 h-auto sm:w-24 md:w-32 transition-transform duration-300 hover:scale-105"
-            />
-          </Link>
+    <nav 
+      className={`fixed top-0 left-0 w-full transition-all duration-300
+        ${isScrolled 
+          ? 'bg-white/90 backdrop-blur-md shadow-lg' 
+          : 'bg-white shadow-md'}`}
+      style={{ zIndex: 1000 }} // Ensure navbar is always on top
+    >
+      {/* Main Navigation Bar */}
+      <div className="relative flex justify-between items-center w-full px-4 md:px-8 lg:px-16 py-3">
+        {/* Logo */}
+        <Link to="/" className="flex-shrink-0 z-50">
+          <img
+            src={img.logo}
+            alt="Hayah Foods Logo"
+            className="w-16 h-auto sm:w-20 md:w-24 transition-transform duration-300 hover:scale-105"
+          />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex items-center space-x-8">
+          {[
+            { path: "/about", text: "About Us" },
+            { path: "/product", text: "Products" },
+            { path: "/bulk-order-enquiry", text: "Bulk Order" },
+            { path: "/ProcessStep", text: "Process" }
+          ].map((item) => (
+            <Link 
+              key={item.path}
+              to={item.path} 
+              className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300
+                ${location.pathname === item.path 
+                  ? 'text-yellow-600 bg-yellow-50' 
+                  : 'text-gray-700 hover:text-yellow-600 hover:bg-yellow-50'}`}
+            >
+              <span className="font-medium">{item.text}</span>
+            </Link>
+          ))}
         </div>
 
-        {/* Navigation Links (Centered) */}
-        <ul className="hidden md:flex space-x-4 lg:space-x-8 items-center text-gray-800 font-medium mx-auto">
-          <li>
-            <Link to="/about" className="relative text-gray-800 hover:text-yellow-700 transition duration-300">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link to="/product" className="relative text-gray-800 hover:text-yellow-700 transition duration-300">
-              Products
-            </Link>
-          </li>
-          <li>
-            <Link to="/bulk-order-enquiry" className="relative text-gray-800 hover:text-yellow-700 transition duration-300">
-              Bulk Order Enquiry
-            </Link>
-          </li>
-          <li>
-            <Link to="/ProcessStep" className="relative text-gray-800 hover:text-yellow-700 transition duration-300">
-             Making Process
-            </Link>
-          </li>
-        </ul>
-     
-        <div className="hidden md:flex px-10">
-  <Link
-    to="/Qrcode"
-    className="relative flex items-center gap-2 text-gray-900 hover:text-yellow-900 bg-slate-100 rounded-full p-3 transition duration-300  hover:shadow-lg"
-  >
-    <span className="font-semibold">Contact</span>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h5v5H3V3zM16 3h5v5h-5V3zM3 16h5v5H3v-5zM16 16h5v5h-5v-5zM10 10h4v4h-4v-4zM10 3h4v4h-4V3zM10 17h4v4h-4v-4zM3 10h4v4H3v-4zM17 10h4v4h-4v-4z"/>
-    </svg>
-  </Link>
-</div>
-
-
-
-        {/* Scroll Down Button (Right Side) */}
-        <div className="hidden md:flex">
-          <button 
-            onClick={scrollToBottom} 
-            className="text-gray-900 hover:text-yellow-900 bg-slate-100 rounded-full p-2 transition duration-300 flex items-center justify-center"
+        {/* Right Section - Contact & Scroll */}
+        <div className="hidden lg:flex items-center gap-4">
+          <Link
+            to="/Qrcode"
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-50 hover:bg-yellow-100
+                     text-yellow-700 rounded-full transition-all duration-300
+                     hover:shadow-md hover:scale-105"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+            <RiQrCodeLine className="text-xl" />
+            <span className="font-semibold">Contact</span>
+          </Link>
 
-
-
+          {/* Added Scroll Button */}
+          <motion.button 
+            onClick={scrollToBottom}
+            className="p-2 rounded-full bg-gray-50 hover:bg-gray-100 
+                     text-gray-600 transition-all duration-300
+                     hover:shadow-md"
+            whileHover={{ y: 3 }}
+            animate={{ y: [0, 3, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <HiChevronDown className="text-xl" />
+          </motion.button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button className="md:hidden focus:outline-none" onClick={toggleMenu}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8 text-gray-800">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
+        {/* Mobile Menu Button - Updated z-index */}
+        <button 
+          className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors relative"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          style={{ zIndex: 1002 }} // Above the mobile menu
+        >
+          {isMobileMenuOpen ? (
+            <FiX className="w-6 h-6 text-gray-800" />
+          ) : (
+            <FiMenu className="w-6 h-6 text-gray-800" />
+          )}
         </button>
       </div>
 
-      {/* Mobile Sidebar */}
+      {/* Mobile Menu Overlay - Updated z-indices */}
       <AnimatePresence>
-  {isMobileMenuOpen && (
-    <motion.div 
-      initial={{ x: "-100%" }} 
-      animate={{ x: 0 }} 
-      exit={{ x: "-100%" }} 
-      transition={{ duration: 0.4, ease: "easeOut" }} 
-      className="fixed top-0 left-0 w-4/5 max-w-xs h-full bg-white shadow-lg z-[60] p-6"
-    >
-      {/* Close Button */}
-      <button 
-        onClick={toggleMenu} 
-        className="absolute top-5 right-5 text-gray-800 focus:outline-none text-2xl"
-      >
-        ✖
-      </button>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop - Updated */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50"
+              style={{ zIndex: 1001 }} // Above navbar, below menu button
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
 
-      {/* Mobile Navigation Links */}
-      <ul className="flex flex-col items-start space-y-5 text-gray-800 font-medium mt-10">
-        <li><Link to="/about" onClick={toggleMenu}>About</Link></li>
-        <li><Link to="/product" onClick={toggleMenu}>Products</Link></li>
-        <li><Link to="/bulk-order-enquiry" onClick={toggleMenu}>Bulk Order Enquiry</Link></li>
-        <li><Link to="/ProcessStep" onClick={toggleMenu}>Making Process</Link></li>
-
-        {/* Contact QR Code Button (Now Visible on Mobile) */}
-        <li className="w-full ">
-          <Link 
-            to="/Qrcode" 
-            className="w-full flex mt-11 gap-3 justify-center text-gray-900 hover:text-yellow-900 bg-slate-100  p-3 transition duration-300 shadow-md hover:shadow-lg"
-            onClick={toggleMenu}
-          >
-            <span className="font-semibold">Contact</span>
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              strokeWidth={2} 
-              stroke="currentColor" 
-              className="w-6 h-6"
+            {/* Mobile Menu - Updated */}
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed top-0 right-0 w-[80%] max-w-sm h-screen bg-white"
+              style={{ zIndex: 1001 }} // Same as backdrop
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h5v5H3V3zM16 3h5v5h-5V3zM3 16h5v5H3v-5zM16 16h5v5h-5v-5zM10 10h4v4h-4v-4zM10 3h4v4h-4V3zM10 17h4v4h-4v-4zM3 10h4v4H3v-4zM17 10h4v4h-4v-4z"/>
-            </svg>
-          </Link>
-        </li>
-      </ul>
-    </motion.div>
-  )}
-</AnimatePresence>
+              {/* Mobile Menu Content */}
+              <div className="flex flex-col h-full overflow-y-auto pt-16"> {/* Added pt-16 for navbar height */}
+                {/* Mobile Menu Header - Removed close button from header */}
+                <div className="px-4 pb-4 border-b">
+                  <span className="text-lg font-semibold text-gray-800">Menu</span>
+                </div>
 
+                {/* Mobile Navigation Links */}
+                <div className="flex flex-col p-4 space-y-4">
+                  {[
+                    { path: "/about", text: "About Us" },
+                    { path: "/product", text: "Products" },
+                    { path: "/bulk-order-enquiry", text: "Bulk Order" },
+                    { path: "/ProcessStep", text: "Process" }
+                  ].map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all
+                        ${location.pathname === item.path 
+                          ? 'bg-yellow-50 text-yellow-600' 
+                          : 'hover:bg-gray-50 text-gray-700'}`}
+                    >
+                      <span className="font-medium">{item.text}</span>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Mobile Contact Button */}
+                <div className="mt-auto p-4 border-t">
+                  <Link
+                    to="/Qrcode"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-yellow-500
+                             text-white rounded-lg hover:bg-yellow-600 transition-colors"
+                  >
+                    <RiQrCodeLine className="text-xl" />
+                    <span className="font-semibold">Contact Us</span>
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
